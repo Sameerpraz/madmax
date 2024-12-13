@@ -28,8 +28,36 @@ function activate(context) {
     }, 5000);
     vscode.window.showInformationMessage("A 30 second timer has started");
   });
-
   context.subscriptions.push(disposable);
+
+  const clsCompletion = vscode.languages.registerCompletionItemProvider(
+    { scheme: "file", language: "javascript" },
+    {
+      provideCompletionItems(document, position) {
+        const linePrefix = document
+          .lineAt(position)
+          .text.substr(0, position.character);
+        if (!linePrefix.endsWith("cls")) {
+          return undefined;
+        }
+
+        const completionItem = new vscode.CompletionItem(
+          "cls",
+          vscode.CompletionItemKind.Snippet
+        );
+        completionItem.insertText = "console.log();";
+        completionItem.detail = "Insert console.log()";
+        completionItem.documentation = "Shortcut for console.log()";
+        completionItem.command = {
+          command: "editor.action.triggerSuggest",
+          title: "Re-trigger completions",
+        };
+        return [completionItem];
+      },
+    },
+    "s" // Trigger on "s"
+  );
+  context.subscriptions.push(clsCompletion);
 }
 
 // This method is called when your extension is deactivated
