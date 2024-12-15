@@ -37,12 +37,14 @@ function activate(context) {
         const linePrefix = document
           .lineAt(position)
           .text.substr(0, position.character);
-        if (!linePrefix.endsWith("cls")) {
+
+        // Suggest completion if the line ends with 'cls'
+        if (!linePrefix.endsWith("ssss")) {
           return undefined;
         }
 
         const completionItem = new vscode.CompletionItem(
-          "cls",
+          "ssss",
           vscode.CompletionItemKind.Snippet
         );
         completionItem.insertText = "console.log();";
@@ -54,8 +56,7 @@ function activate(context) {
         };
         return [completionItem];
       },
-    },
-    "s" // Trigger on "s"
+    }
   );
   context.subscriptions.push(clsCompletion);
 }
