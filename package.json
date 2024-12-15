@@ -22,6 +22,19 @@
         "command": "ggggg.ggggg",
         "title": "Testing"
       }
+    ],
+    "languages": [
+      {
+        "id": "javascript",
+        "aliases": [
+          "JavaScript",
+          "javascript"
+        ],
+        "extensions": [
+          ".js",
+          ".jsx"
+        ]
+      }
     ]
   },
   "scripts": {
